@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgriConnect - Services</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+/* Reset & Body */
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #f0f8f5;
+  color: #2e7d32;
+}
+
+/* Page Container */
+.container {
+  max-width: 1200px;
+  margin: 50px auto;
+  padding: 0 20px;
+}
+
+/* Heading */
+h1 {
+  text-align: center;
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+
+/* Service Cards Flow */
+.services {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 20px;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 25px;
+  width: 350px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  transition: transform 0.3s, box-shadow 0.3s;
+  text-align: center;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+}
+
+.card h3 {
+  font-size: 22px;
+  margin-bottom: 15px;
+  color: #1b4332;
+}
+
+.card p {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* Flowchart container */
+.flowchart {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin-top: 50px;
+  gap: 40px;
+}
+
+.flow-step {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 20px 25px;
+  width: 280px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  position: relative;
+  transition: transform 0.3s;
+}
+
+.flow-step:hover {
+  transform: translateY(-5px);
+}
+
+.flow-step::after {
+  content: "→";
+  position: absolute;
+  right: -25px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 24px;
+  color: #4caf50;
+}
+
+.flow-step:last-child::after {
+  content: "";
+}
+
+/* Pie chart container */
+.pie-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+  gap: 50px;
+}
+
+.pie {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: conic-gradient(
+    #4caf50 0% 40%, 
+    #81c784 40% 70%, 
+    #a5d6a7 70% 100%
+  );
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  color: #fff;
+  font-size: 18px;
+}
+
+.pie span {
+  background: rgba(255,255,255,0.8);
+  padding: 10px;
+  border-radius: 50%;
+  color: #2e7d32;
+  font-size: 16px;
+  text-align: center;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Our Services</h1>
+
+  <!-- Service Cards -->
+  <div class="services">
+    <div class="card">
+      <h3>Farmers' Queries</h3>
+      <p>If farmers have any query regarding their field, they can directly submit it on the dashboard. Agri experts will review, visit, and provide solutions.</p>
+    </div>
+
+    <div class="card">
+      <h3>Agro Tourism Planning</h3>
+      <p>Agri guests can plan their agro-tourism trips with guidance, available discounts, and detailed farm information. They get proper offers and assistance.</p>
+    </div>
+
+    <div class="card">
+      <h3>Farm Rental Opportunities</h3>
+      <p>Farmers who are ready to give their farms for agro-tourism can list their farms. Guests can explore opportunities to book farms directly.</p>
+    </div>
+  </div>
+
+  <!-- Flowchart Steps -->
+  <div class="flowchart">
+    <div class="flow-step">
+      <h3>1. Farmer submits query</h3>
+      <p>Problem regarding crop or field entered in dashboard.</p>
+    </div>
+    <div class="flow-step">
+      <h3>2. Agri expert reviews</h3>
+      <p>Experts assess the issue and schedule a visit.</p>
+    </div>
+    <div class="flow-step">
+      <h3>3. Solution provided</h3>
+      <p>Farmers receive guidance or support for field problems.</p>
+    </div>
+    <div class="flow-step">
+      <h3>4. Agro-tourism planning</h3>
+      <p>Guests find available farms, offers, and plan trips.</p>
+    </div>
+  </div>
+
+  <!-- Pie Diagram Example -->
+  <div class="pie-container">
+    <div class="pie"><span>40% Farmer Support</span></div>
+    <div class="pie"><span>30% Agro Tourism Guidance</span></div>
+    <div class="pie"><span>30% Farm Rental Opportunities</span></div>
+  </div>
+
+</div>
+
+</body>
+</html>

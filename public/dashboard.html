@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgriConnect Dashboard</title>
+<style>
+  body {
+    font-family: "Poppins", sans-serif;
+    background: #e8f5e9;
+    padding: 40px;
+  }
+  h2 {
+    color: #2e7d32;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  table, th, td {
+    border: 1px solid #ccc;
+  }
+  th, td {
+    padding: 10px;
+    text-align: center;
+  }
+  th {
+    background: #66bb6a;
+    color: white;
+  }
+  button {
+    background: #d32f2f;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    float: right;
+  }
+</style>
+</head>
+<body>
+  <button onclick="logout()">Logout</button>
+  <h2>Welcome to AgriConnect Dashboard 👩‍🌾</h2>
+  <p id="userInfo"></p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Farmer Name</th>
+        <th>Crop Type</th>
+        <th>Land Area (Acre)</th>
+        <th>Location</th>
+      </tr>
+    </thead>
+    <tbody id="dataTable"></tbody>
+  </table>
+
+<script>
+const loggedIn = localStorage.getItem("isLoggedIn");
+const userEmail = localStorage.getItem("userEmail");
+
+if (!loggedIn) {
+  alert("You must login first!");
+  window.location.href = "login.html";
+}
+
+document.getElementById("userInfo").innerText = "Logged in as: " + userEmail;
+
+// Sample data
+const farmers = [
+  { id: 1, name: "Ramesh Patil", crop: "Sugarcane", area: 4, location: "Sangli" },
+  { id: 2, name: "Suresh Shinde", crop: "Wheat", area: 2, location: "Kolhapur" },
+  { id: 3, name: "Anita Jadhav", crop: "Soybean", area: 3, location: "Satara" },
+  { id: 4, name: "Prakash Pawar", crop: "Cotton", area: 5, location: "Solapur" }
+];
+
+const tableBody = document.getElementById("dataTable");
+farmers.forEach(f => {
+  const row = `<tr>
+    <td>${f.id}</td>
+    <td>${f.name}</td>
+    <td>${f.crop}</td>
+    <td>${f.area}</td>
+    <td>${f.location}</td>
+  </tr>`;
+  tableBody.innerHTML += row;
+});
+
+function logout() {
+  localStorage.removeItem("isLoggedIn");
+  localStorage.removeItem("userEmail");
+  window.location.href = "login.html";
+}
+</script>
+</body>
+</html>

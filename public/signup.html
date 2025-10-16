@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>AgriConnect - Signup</title>
+<style>
+  body { margin:0; font-family:"Poppins",sans-serif; background:linear-gradient(135deg,#a5d6a7,#66bb6a); height:100vh; display:flex; align-items:center; justify-content:center; }
+  .login-container { background:#ffffffdd; padding:30px; border-radius:15px; box-shadow:0 10px 30px rgba(0,0,0,0.2); width:350px; text-align:center; animation:fadeIn 1s ease; }
+  .logo { font-size:60px; color:#2e7d32; margin-bottom:10px; animation:float 3s infinite ease-in-out; }
+  h2 { margin-bottom:20px; color:#1b5e20; font-size:24px; font-weight:700; }
+  .input-group { margin-bottom:15px; text-align:left; }
+  .input-group label { display:block; margin-bottom:4px; font-size:13px; color:#444; }
+  .input-group input { width:100%; padding:10px; border:1px solid #ccc; border-radius:6px; font-size:14px; outline:none; transition:border .3s; }
+  .input-group input:focus { border-color:#2e7d32; box-shadow:0 0 6px rgba(46,125,50,0.3); }
+  .btn { width:100%; padding:12px; font-size:16px; font-weight:bold; color:#fff; background:linear-gradient(90deg,#43a047,#2e7d32); border:none; border-radius:50px; cursor:pointer; transition:all .3s ease; animation:pulse 2s infinite; }
+  .btn:hover { background:linear-gradient(90deg,#2e7d32,#1b5e20); box-shadow:0 6px 20px rgba(0,0,0,0.3); }
+  .extra-links { margin-top:15px; font-size:13px; }
+  .extra-links a { color:#2e7d32; text-decoration:none; margin:0 4px; transition:color .3s; }
+  .extra-links a:hover { color:#1b5e20; text-decoration:underline; }
+  @keyframes fadeIn { from {opacity:0; transform:translateY(20px);} to {opacity:1; transform:translateY(0);} }
+  @keyframes float { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-10px);} }
+  @keyframes pulse { 0%{transform:scale(1);} 50%{transform:scale(1.05);} 100%{transform:scale(1);} }
+</style>
+</head>
+<body>
+<div class="login-container">
+  <div class="logo">🌱</div>
+  <h2>Signup</h2>
+
+  <form action="/signup" method="POST" autocomplete="off">
+    <div class="input-group">
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" placeholder="Your username" required />
+    </div>
+
+    <div class="input-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" placeholder="Password" required />
+    </div>
+
+    <button type="submit" class="btn">Signup</button>
+  </form>
+
+  <div class="extra-links">
+    <a href="login.html">Already have an account? Login</a>
+  </div>
+</div>
+</body>
+</html>

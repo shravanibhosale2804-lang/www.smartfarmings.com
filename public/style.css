@@ -1,0 +1,63 @@
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    background: #dff0d8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Form container for signup/login */
+.form-container {
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    width: 300px;
+    text-align: center;
+}
+
+/* Inputs */
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+/* Buttons */
+button {
+    padding: 10px 20px;
+    background: #4caf50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #45a049;
+}
+
+/* Dashboard styles */
+.dashboard-container {
+    background: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.logout-button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: #f44336;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.logout-button:hover {
+    background: #d32f2f;
+}

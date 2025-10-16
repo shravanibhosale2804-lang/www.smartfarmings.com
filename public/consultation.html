@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Consultation Details</title>
+<style>
+  body { 
+    font-family:Poppins, sans-serif; 
+    margin:0; 
+    background: linear-gradient(135deg, #d0f0c0, #a8e6a3); 
+    display:flex; 
+    justify-content:center; 
+    align-items:center; 
+    min-height:100vh; 
+  }
+
+  .container { 
+    background:#ffffffdd; 
+    border-radius:20px; 
+    padding:30px; 
+    width:500px; 
+    box-shadow: 0 12px 30px rgba(0,0,0,0.25); 
+    text-align:center;
+    transition: transform 0.3s;
+  }
+
+  .container:hover { transform: translateY(-3px); }
+
+  h2 { 
+    color:#1b5e20; 
+    margin-bottom:20px; 
+    font-size:28px;
+  }
+
+  p { margin:8px 0; font-size:15px; color:#2e7d32; }
+
+  button { 
+    width:100%;
+    padding:12px; 
+    margin-top:15px;
+    border-radius:10px; 
+    border:none; 
+    background: linear-gradient(90deg,#43a047,#2e7d32); 
+    color:white; 
+    font-weight:600; 
+    cursor:pointer; 
+    transition:0.3s; 
+    font-size:16px;
+  }
+
+  button:hover { 
+    background: linear-gradient(90deg,#2e7d32,#1b5e20); 
+    transform: translateY(-2px);
+    box-shadow:0 6px 20px rgba(0,0,0,0.25);
+  }
+
+  .decor-icon {
+    font-size: 50px; 
+    margin-bottom: 15px; 
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="decor-icon">🌾</div>
+  <h2>Consultation Details</h2>
+  <div id="farmerInfo"></div>
+  
+  <button type="button" onclick="window.location.href='agriexpert.html'">See Pending Requests</button>
+</div>
+
+<script>
+// Get query ID from URL
+const urlParams = new URLSearchParams(window.location.search);
+const queryId = Number(urlParams.get('id'));
+
+// Load query from localStorage
+let queries = JSON.parse(localStorage.getItem('queries')) || [];
+const query = queries.find(q => q.id === queryId);
+
+const farmerDiv = document.getElementById('farmerInfo');
+if(query){
+  farmerDiv.innerHTML = `
+    <p><strong>Farmer Name:</strong> ${query.farmerName}</p>
+    <p><strong>Contact:</strong> ${query.contactNumber || 'N/A'}</p>
+  `;
+}
+</script>
+
+</body>
+</html>

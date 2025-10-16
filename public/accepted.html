@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Accepted Requests - AgriConnect</title>
+<style>
+  body { 
+    font-family: Poppins, sans-serif; 
+    background: #e8f5e9; 
+    padding: 20px; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center;
+  }
+  h2 { 
+    text-align: center; 
+    color: #1b5e20; 
+    margin-bottom: 30px;
+  }
+  .card { 
+    background: #fff; 
+    padding: 20px; 
+    border-radius: 15px; 
+    margin-bottom: 20px; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    width: 100%;
+    max-width: 500px;
+  }
+  p { 
+    margin: 5px 0; 
+  }
+  .home-btn {
+    padding: 12px 30px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    background: linear-gradient(90deg, #43a047, #2e7d32);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.3s;
+    margin-top: 20px;
+  }
+  .home-btn:hover {
+    background: linear-gradient(90deg, #2e7d32, #1b5e20);
+    transform: translateY(-2px);
+  }
+</style>
+</head>
+<body>
+
+<h2>Accepted Requests</h2>
+<div id="acceptedContainer"></div>
+
+<!-- Go to Home button -->
+<a href="categorypage.html" class="home-btn">Go to Home</a>
+
+<script>
+const container = document.getElementById('acceptedContainer');
+const queries = JSON.parse(localStorage.getItem('queries')) || [];
+const accepted = queries.filter(q => q.status === 'accepted');
+
+if(accepted.length === 0){
+  container.innerHTML = "<p>No requests have been accepted yet.</p>";
+} else {
+  accepted.forEach(q => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <p><strong>Farmer:</strong> ${q.farmerName}</p>
+      <p><strong>Contact:</strong> ${q.contactNumber || 'N/A'}</p>
+      <p><strong>Problem:</strong> ${q.title}</p>
+      <p><strong>Accepted On:</strong> ${q.acceptedOn || '-'}</p>
+    `;
+    container.appendChild(card);
+  });
+}
+</script>
+
+</body>
+</html>

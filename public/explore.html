@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Explore Landowners - AgriConnect</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+  body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    background: url('https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
+    background-size: cover;
+    padding: 50px 20px;
+    color: #fff;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    color: #ffffff;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  }
+
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+  }
+
+  .card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    color: #333 !important; /* FORCE text inside card to be dark */
+  }
+
+  .card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 12px 35px rgba(0,0,0,0.4);
+  }
+
+  .card h2 {
+    margin-top: 0;
+    color: #1b5e20; /* leaf green */
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+  }
+
+  .card p {
+    margin: 5px 0;
+    font-size: 0.95rem;
+    color: #333 !important; /* Force dark text */
+  }
+
+  .card .label {
+    font-weight: 600;
+    color: #2e7d32; /* leaf green accent */
+  }
+
+  .card::before {
+    content: "🍃";
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 2.2rem;
+    opacity: 0.25;
+    transform: rotate(-15deg);
+  }
+
+  .explore-btn {
+    display: block;
+    width: 200px;
+    margin: 40px auto 0;
+    padding: 14px 0;
+    background: linear-gradient(135deg, #2e7d32, #56ab2f);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.25);
+    transition: all 0.3s ease;
+    text-align: center;
+  }
+
+  .explore-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.35);
+  }
+
+  @media (max-width: 600px) {
+    body {
+      padding: 30px 10px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<h1>Explore Landowners</h1>
+<div class="grid-container" id="landownersGrid">
+  <!-- Landowner cards will be injected here -->
+</div>
+
+<button class="explore-btn" onclick="window.location.href='categorypage.html'">Go to Home</button>
+
+<script>
+  // Get data from localStorage
+  let landowners = JSON.parse(localStorage.getItem('landOwnersArray')) || [];
+
+  // If only single submission exists, convert to array
+  const singleData = JSON.parse(localStorage.getItem('landOwnerData'));
+  if(singleData && !landowners.find(l => l.ownerName === singleData.ownerName)) {
+    landowners.push(singleData);
+    localStorage.setItem('landOwnersArray', JSON.stringify(landowners));
+  }
+
+  const grid = document.getElementById('landownersGrid');
+
+  if(landowners.length === 0) {
+    grid.innerHTML = "<p style='color:green; text-align:center; font-size:1.2rem;'>No landowner data found. Please submit the Land Owner form first.</p>";
+  } else {
+    landowners.forEach(owner => {
+      const card = document.createElement('div');
+      card.classList.add('card');
+
+      card.innerHTML = `
+        <h2>${owner.ownerName}</h2>
+        <p><span class="label">Phone:</span> ${owner.ownerPhone || 'N/A'}</p>
+        <p><span class="label">Farm Name:</span> ${owner.farmName || 'N/A'}</p>
+        <p><span class="label">Farm Address:</span> ${owner.farmAddress || 'N/A'}</p>
+        <p><span class="label">Land Size:</span> ${owner.landSize || 'N/A'}</p>
+        <p><span class="label">Soil Type:</span> ${owner.soilType || 'N/A'}</p>
+        <p><span class="label">Used for Growing:</span> ${owner.usedForGrowing || 'N/A'}</p>
+        <p><span class="label">Amenities:</span> ${owner.amenities || 'N/A'}</p>
+        <p><span class="label">Rent:</span> ${owner.rent || 'N/A'}</p>
+        <p><span class="label">Location:</span> ${owner.location || 'N/A'}</p>
+      `;
+      grid.appendChild(card);
+    });
+  }
+</script>
+
+</body>
+</html>

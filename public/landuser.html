@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgriConnect - Land User Form</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+  body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: url('landuser.jpeg') no-repeat center center fixed;
+    background-size: cover;
+  }
+
+  .container {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    padding: 40px 35px;
+    width: 95%;
+    max-width: 500px;
+    box-shadow: 0 12px 35px rgba(0,0,0,0.25);
+    text-align: center;
+    color: #333;
+  }
+
+  h2 { color: #2e7d32; margin-bottom: 25px; font-weight: 600; }
+  p.note { font-size: 0.9rem; color: #555; margin-bottom: 15px; }
+
+  input, select, textarea {
+    width: 100%; padding: 12px 14px; margin: 10px 0;
+    border-radius: 8px; border: 1px solid #ccc; font-size: 1rem; outline: none;
+  }
+
+  input:focus, select:focus, textarea:focus { border-color: #2e7d32; box-shadow: 0 0 5px #2e7d32; }
+  textarea { resize: none; }
+
+  button {
+    width: 100%; padding: 14px; margin-top: 15px;
+    background-color: #2e7d32; border: none; border-radius: 8px;
+    color: white; font-size: 16px; font-weight: 600; cursor: pointer; transition: 0.3s;
+  }
+
+  button:hover { background-color: #1b5e20; transform: scale(1.03); }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Land User Form</h2>
+  <p class="note">Fill in your details to request land usage. Our team will contact you shortly.</p>
+
+  <form id="landUserForm" onsubmit="return handleSubmit(event)">
+    <input type="text" name="userName" placeholder="Full Name" required>
+    <input type="text" name="userPhone" placeholder="Phone Number" required>
+    <input type="email" name="userEmail" placeholder="Email Address" required>
+    <input type="text" name="location" placeholder="Preferred Location" required>
+
+    <select name="areaRequired" required>
+      <option value="">Area Required</option>
+      <option value="1-5 acres">1-5 acres</option>
+      <option value="5-10 acres">5-10 acres</option>
+      <option value="10+ acres">10+ acres</option>
+    </select>
+
+    <select name="duration" required>
+      <option value="">Duration Needed</option>
+      <option value="1-3 months">1-3 months</option>
+      <option value="3-6 months">3-6 months</option>
+      <option value="6+ months">6+ months</option>
+    </select>
+
+    <input type="text" name="preferredCrop" placeholder="Preferred Crop / Produce">
+    <textarea name="additionalNotes" placeholder="Additional Notes / Requirements" rows="3"></textarea>
+
+    <button type="submit">Submit</button>
+  </form>
+</div>
+
+<script>
+function handleSubmit(event) {
+  event.preventDefault();
+  const formData = new FormData(event.target);
+  const data = Object.fromEntries(formData.entries());
+  localStorage.setItem('landUserData', JSON.stringify(data));
+
+  // Redirect to thank you page
+  window.location.href = "landuserthankyou.html";
+}
+</script>
+
+</body>
+</html>

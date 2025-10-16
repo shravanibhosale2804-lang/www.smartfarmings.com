@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thank You - AgriConnect</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+  body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #c8e6c9, #a5d6a7);
+    overflow: hidden;
+  }
+
+  .thankyou-container {
+    background: #ffffffdd;
+    padding: 40px 30px;
+    border-radius: 20px;
+    text-align: center;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+    position: relative;
+    animation: fadeIn 1.5s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(-20px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  .logo {
+    font-size: 60px;
+    margin-bottom: 20px;
+    animation: floatLogo 3s ease-in-out infinite;
+  }
+
+  @keyframes floatLogo {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  h1 {
+    font-size: 28px;
+    color: #2e7d32;
+    margin-bottom: 15px;
+  }
+
+  p {
+    font-size: 18px;
+    color: #388e3c;
+    margin-bottom: 25px;
+    line-height: 1.5;
+  }
+
+  .btn-home {
+    padding: 12px 25px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    background: linear-gradient(90deg, #43a047, #2e7d32);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.3s;
+  }
+
+  .btn-home:hover {
+    background: linear-gradient(90deg, #2e7d32, #1b5e20);
+    transform: translateY(-2px);
+  }
+</style>
+</head>
+<body>
+
+<div class="thankyou-container">
+  <div class="logo">🌿</div>
+  <h1>Thank You!</h1>
+  <p>Your query has been submitted.<br>Our Agri Experts will reach you soon.</p>
+  <a href="categorypage.html" class="btn-home">Go to Home</a>
+</div>
+
+</body>
+</html>

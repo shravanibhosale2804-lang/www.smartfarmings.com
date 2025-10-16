@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgriConnect - Farmer Dashboard</title>
+<style>
+  body { font-family: "Poppins", sans-serif; margin:0; background:linear-gradient(135deg,#c8e6c9,#a5d6a7); min-height:100vh; display:flex; justify-content:center; align-items:center;}
+  .form-container { background:#ffffffdd; padding:30px; border-radius:15px; box-shadow:0 8px 30px rgba(0,0,0,0.2); width:400px; }
+  h2 { text-align:center; margin-bottom:20px; color:#1b5e20;}
+  input, textarea, select, button { width:100%; padding:10px; margin-bottom:15px; border-radius:8px; border:1px solid #ccc; font-size:14px; outline:none;}
+  input:focus, textarea:focus, select:focus { border-color:#2e7d32; box-shadow:0 0 8px rgba(46,125,50,0.3);}
+  button { background:linear-gradient(90deg,#43a047,#2e7d32); color:white; font-weight:600; border:none; cursor:pointer; transition:0.3s;}
+  button:hover { background:linear-gradient(90deg,#2e7d32,#1b5e20); box-shadow:0 6px 20px rgba(0,0,0,0.3);}
+</style>
+</head>
+<body>
+
+<div class="form-container">
+  <h2 id="formTitle">Submit Your Problem</h2>
+  <form id="farmerForm" enctype="multipart/form-data">
+    <input type="text" id="farmerName" placeholder="Your Name" required>
+    <input type="text" id="contactNumber" placeholder="Contact Number" required>
+    <input type="text" id="title" placeholder="Problem Title" required>
+    <textarea id="description" placeholder="Problem Description" required></textarea>
+    <select id="language">
+      <option value="en">English</option>
+      <option value="hi">हिन्दी</option>
+      <option value="mr">मराठी</option>
+    </select>
+    <input type="file" id="cropImage">
+    <button type="submit">Submit</button>
+  </form>
+</div>
+
+<script>
+// Translations
+const translations = {
+  en: { formTitle: "Submit Your Problem", name: "Your Name", contact: "Contact Number", problemTitle: "Problem Title", description: "Problem Description", submit: "Submit" },
+  hi: { formTitle: "अपनी समस्या सबमिट करें", name: "आपका नाम", contact: "संपर्क नंबर", problemTitle: "समस्या का शीर्षक", description: "समस्या का विवरण", submit: "सबमिट करें" },
+  mr: { formTitle: "आपली समस्या सबमिट करा", name: "तुमचं नाव", contact: "संपर्क क्रमांक", problemTitle: "समस्येचं शीर्षक", description: "समस्येचे तपशील", submit: "सबमिट करा" }
+};
+
+// Elements
+const farmerForm = document.getElementById('farmerForm');
+const languageSelect = document.getElementById('language');
+
+// Function to translate form
+function translateDashboard(lang) {
+  document.getElementById('formTitle').innerText = translations[lang].formTitle;
+  document.getElementById('farmerName').placeholder = translations[lang].name;
+  document.getElementById('contactNumber').placeholder = translations[lang].contact;
+  document.getElementById('title').placeholder = translations[lang].problemTitle;
+  document.getElementById('description').placeholder = translations[lang].description;
+  farmerForm.querySelector('button[type="submit"]').innerText = translations[lang].submit;
+}
+
+// On language change
+languageSelect.addEventListener('change', (e) => {
+  translateDashboard(e.target.value);
+});
+
+// Initial translation
+translateDashboard(languageSelect.value);
+
+// Form submission
+farmerForm.addEventListener('submit', function(e){
+  e.preventDefault();
+
+  const farmerName = document.getElementById('farmerName').value;
+  const contactNumber = document.getElementById('contactNumber').value;
+  const title = document.getElementById('title').value;
+  const description = document.getElementById('description').value;
+  const language = document.getElementById('language').value;
+  const cropImage = document.getElementById('cropImage').files[0];
+
+  // Save query to localStorage
+  let queries = JSON.parse(localStorage.getItem('queries')) || [];
+  const newQuery = {
+    id: Date.now(),
+    farmerName,
+    contactNumber,
+    title,
+    description,
+    language,
+    cropImage: cropImage ? cropImage.name : null,
+    status: 'pending',
+    submittedOn: new Date().toLocaleString()
+  };
+  queries.push(newQuery);
+  localStorage.setItem('queries', JSON.stringify(queries));
+
+  // Redirect to Thank You page
+  window.location.href = "tq.html"; // <-- Add your thank you page path here
+});
+</script>
+
+</body>
+</html>

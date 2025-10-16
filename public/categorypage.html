@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgriConnect - Categories</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #d8f3dc, #b7e4c7);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      padding-top: 60px; /* space for logout button */
+      position: relative;
+    }
+
+    .logo {
+      font-size: 36px;
+      font-weight: bold;
+      color: #1b4332;
+      margin-bottom: 50px;
+    }
+
+    /* Logout button */
+    .logout-btn {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      background-color: #e63946;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: 0.3s;
+      text-decoration: none;
+    }
+
+    .logout-btn:hover {
+      background-color: #d62828;
+      transform: translateY(-2px);
+    }
+
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(2, 180px);
+      gap: 30px 80px; /* vertical and horizontal spacing */
+      justify-content: center;
+    }
+
+    /* Card Style */
+    .categories a.card {
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+      text-align: center;
+      font-weight: bold;
+      color: #2d6a4f;
+      font-size: 18px;
+      height: 150px;
+      width: 150px;
+    }
+
+    .categories a.card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    .card .icon {
+      font-size: 40px;
+      margin-bottom: 10px;
+    }
+
+    /* Center buyer card */
+    .buyer-row {
+      grid-column: 1 / span 2;
+      display: flex;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+  <!-- Logout Button -->
+  <a href="login.html" class="logout-btn">Logout</a>
+
+  <div class="logo">🌿 AgriConnect</div>
+
+  <div class="categories">
+    <!-- Pair 1: Farmer and Agri Expert -->
+    <a href="farmers.html" class="card">
+      <div class="icon">🚜</div>
+      Farmer
+    </a>
+    <a href="consultation.html" class="card">
+      <div class="icon">🌾</div>
+      Agri Expert
+    </a>
+
+    <!-- Pair 2: AgroTourist and AgriGuest -->
+    <a href="agofarmers.html" class="card">
+      <div class="icon">🌱</div>
+      AgroTourist
+    </a>
+    <a href="tourism.html" class="card">
+      <div class="icon">🏡</div>
+      AgriGuest
+    </a>
+
+    <!-- Pair 3: Land Owner and Land User -->
+    <a href="landowner.html" class="card">
+      <div class="icon">🏞️</div>
+      Land Owner
+    </a>
+    <a href="landuser.html" class="card">
+      <div class="icon">👨‍🌾</div>
+      Land User
+    </a>
+
+    <!-- Single centered Buyer -->
+    <div class="buyer-row">
+      <a href="buyers.html" class="card">
+        <div class="icon">🛒</div>
+        Buyer
+      </a>
+    </div>
+  </div>
+</body>
+</html>

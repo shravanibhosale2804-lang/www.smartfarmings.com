@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgriConnect - Welcome</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+/* Reset */
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body, html {
+  height: 100%;
+  font-family: 'Poppins', sans-serif;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Background image covering full page */
+.bg-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('vege.webp') no-repeat center center;
+  background-size: cover;
+  z-index: 1;
+  filter: brightness(0.7);
+}
+
+/* Flex wrapper to center container */
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+/* Main container centered in page */
+.container {
+  text-align: center;
+  padding: 40px 30px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+  width: 350px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  position: relative;
+  animation: fadeIn 1.5s ease forwards;
+}
+
+@keyframes fadeIn {
+  0% {opacity:0; transform: translateY(-30px);}
+  100% {opacity:1; transform: translateY(0);}
+}
+
+/* Logo */
+.logo {
+  font-size: 60px;
+  margin-bottom: 15px;
+  animation: floatLogo 3s ease-in-out infinite;
+}
+
+@keyframes floatLogo {
+  0%, 100% { transform: translateY(0);}
+  50% { transform: translateY(-10px);}
+}
+
+/* Heading & tagline */
+h1 {
+  font-size: 28px;
+  color: #2e7d32;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 16px;
+  color: #388e3c;
+  margin-bottom: 15px;
+  line-height: 1.4;
+}
+
+/* Hero image inside container */
+.hero-img {
+  width: 100px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* Hamburger menu fixed on left corner */
+.menu {
+  position: fixed; 
+  top: 20px;
+  left: 20px;
+  width: 35px;
+  height: 25px;
+  cursor: pointer;
+  z-index: 3;
+}
+
+.menu div {
+  height: 4px;
+  background: #2e7d32;
+  margin: 5px 0;
+  border-radius: 2px;
+  transition: 0.4s;
+}
+
+/* Menu panel overlay */
+.menu-panel {
+  position: fixed;
+  top: 0;
+  left: -250px; 
+  width: 250px;
+  height: 100%;
+  background: #ffffffee;
+  box-shadow: 3px 0 15px rgba(0,0,0,0.3);
+  padding-top: 80px;
+  display: flex;
+  flex-direction: column;
+  transition: left 0.4s ease;
+  z-index: 4;
+}
+
+.menu-panel a {
+  padding: 15px 30px;
+  text-decoration: none;
+  color: #2e7d32;
+  font-weight: 600;
+  font-size: 18px;
+  border-radius: 10px;
+  margin: 5px 10px;
+  transition: background 0.3s, color 0.3s;
+}
+
+.menu-panel a:hover {
+  background: #4caf50;
+  color: #fff;
+}
+
+/* Hamburger animation */
+.menu.open div:nth-child(1) { transform: rotate(45deg) translate(6px,6px);}
+.menu.open div:nth-child(2) { opacity: 0;}
+.menu.open div:nth-child(3) { transform: rotate(-45deg) translate(7px,-7px);}
+.menu-panel.open { left:0; }
+</style>
+</head>
+<body>
+
+<div class="bg-image"></div>
+
+<!-- Hamburger Menu (fixed left corner) -->
+<div class="menu" id="hamburger">
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
+
+<!-- Menu panel -->
+<div class="menu-panel" id="menuPanel">
+  <a href="login.html">Home</a>
+  <a href="service.html">Services</a>
+  <a href="help.html">Help Center</a>
+  <a href="contact.html">Contact</a>
+</div>
+
+<!-- Wrapper to center container -->
+<div class="wrapper">
+  <div class="container">
+    <div class="logo">🌿</div>
+    <h1>AgriConnect</h1>
+    <p>Discover the joy of farming and explore immersive agro-tourism experiences!</p>
+    <img class="hero-img" src="agriexpert.webp" alt="Agro Tourism">
+  </div>
+</div>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const menuPanel = document.getElementById('menuPanel');
+
+  // Toggle menu
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    menuPanel.classList.toggle('open');
+  });
+
+  // Close when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!menuPanel.contains(e.target) && !hamburger.contains(e.target)) {
+      menuPanel.classList.remove('open');
+      hamburger.classList.remove('open');
+    }
+  });
+
+  // Close menu automatically when a link is clicked
+  document.querySelectorAll('.menu-panel a').forEach(link => {
+    link.addEventListener('click', () => {
+      menuPanel.classList.remove('open');
+      hamburger.classList.remove('open');
+    });
+  });
+</script>
+
+</body>
+</html>

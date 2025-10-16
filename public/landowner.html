@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgriConnect - Land Owner</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+  body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #f2f7f2;
+  }
+
+  .container {
+    background: #ffffff;
+    border-radius: 15px;
+    padding: 35px 30px;
+    width: 95%;
+    max-width: 450px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    text-align: center;
+  }
+
+  h2 { color: #2e7d32; margin-bottom: 20px; font-weight: 600; }
+  p { font-size: 0.9rem; color: #555; margin-bottom: 20px; }
+
+  input, select {
+    width: 100%; padding: 12px 14px; margin: 10px 0;
+    border-radius: 8px; border: 1px solid #ccc; font-size: 1rem; outline: none;
+  }
+
+  input:focus, select:focus {
+    border-color: #2e7d32; box-shadow: 0 0 5px #2e7d32;
+  }
+
+  button {
+    width: 100%; padding: 14px; margin-top: 15px;
+    background-color: #2e7d32; border: none; border-radius: 8px;
+    color: white; font-size: 16px; font-weight: 600; cursor: pointer;
+    transition: 0.3s;
+  }
+
+  button:hover { background-color: #1b5e20; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Land Owner Form</h2>
+  <p>If you have any questions, contact us: <strong>+91-8010051216</strong></p>
+
+  <form id="landOwnerForm">
+    <input type="text" name="ownerName" placeholder="Owner Name" required>
+    <input type="text" name="ownerPhone" placeholder="Phone Number" required>
+    <select name="farmSize" required>
+      <option value="">Select Farm Size</option>
+      <option value="1-5 acres">1-5 acres</option>
+      <option value="5-10 acres">5-10 acres</option>
+      <option value="10+ acres">10+ acres</option>
+    </select>
+    <select name="soilType" required>
+      <option value="">Select Soil Type</option>
+      <option value="Loamy">Loamy</option>
+      <option value="Sandy">Sandy</option>
+      <option value="Clay">Clay</option>
+      <option value="Mixed">Mixed</option>
+    </select>
+    <select name="usedForGrowing" required>
+      <option value="">Used for Growing?</option>
+      <option value="Yes">Yes</option>
+      <option value="No">No</option>
+    </select>
+    <input type="text" name="location" placeholder="Location / Address">
+    <input type="text" name="amenities" placeholder="Amenities (if any)">
+    <button type="submit">Submit</button>
+  </form>
+</div>
+
+<script>
+document.getElementById('landOwnerForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(this).entries());
+    localStorage.setItem('landOwnerData', JSON.stringify(data));
+
+    // Direct redirect
+    window.location.href = "submitlandowner.html";
+});
+</script>
+
+</body>
+</html>

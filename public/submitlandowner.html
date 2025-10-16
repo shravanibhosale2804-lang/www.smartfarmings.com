@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thank You - AgriConnect</title>
+<style>
+  body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Background image */
+    background: url('submitlandowner.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #fff;
+  }
+
+  /* Overlay to make text readable */
+  body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5); /* dark overlay */
+    z-index: 0;
+  }
+
+  .thankyou-card {
+    position: relative;
+    z-index: 1; /* above overlay */
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 35px 30px;
+    width: 90%;
+    max-width: 480px;
+    text-align: center;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+    color: #333;
+  }
+
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    color: #2e7d32;
+  }
+
+  p {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 10px;
+  }
+
+  .highlight {
+    font-weight: 600;
+    color: #2e7d32;
+    margin-bottom: 15px;
+  }
+
+  button {
+    padding: 12px 25px;
+    background-color: #2e7d32;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  button:hover {
+    background-color: #1b5e20;
+    transform: scale(1.05);
+  }
+</style>
+</head>
+<body>
+
+<div class="thankyou-card">
+  <h1>Thank You!</h1>
+  <p>Your land details are submitted.</p>
+  <p>We will review and connect with you soon!</p>
+  <p class="highlight" id="ownerNameDisplay"></p>
+  <button onclick="goHome()">Go to Home</button>
+</div>
+
+<script>
+  // Display submitted owner's name
+  const storedData = JSON.parse(localStorage.getItem('landOwnerData'));
+  if(storedData) {
+    document.getElementById('ownerNameDisplay').innerText = `Owner: ${storedData.ownerName}`;
+  }
+
+  function goHome() {
+    window.location.href = "categorypage.html"; // Replace with your home page
+  }
+</script>
+
+</body>
+</html>

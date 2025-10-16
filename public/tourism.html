@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgroTourism Planner - Pin Location</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<style>
+  body {
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+    background: linear-gradient(135deg, #a8edea, #fed6e3);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 30px;
+    min-height: 100vh;
+  }
+  .container {
+    background: #ffffffdd;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+    max-width: 720px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+  h2 {
+    color: #2e7d32;
+    margin-bottom: 25px;
+    font-size: 28px;
+  }
+  #map {
+    height: 450px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    margin-bottom: 20px;
+  }
+  .input-group {
+    margin-bottom: 15px;
+    text-align: left;
+  }
+  .input-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: #333;
+  }
+  .input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    outline: none;
+    font-size: 14px;
+  }
+  .btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background: linear-gradient(90deg, #43a047, #2e7d32);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  .btn:hover {
+    background: linear-gradient(90deg, #2e7d32, #1b5e20);
+    transform: translateY(-2px);
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h2>Pin Your AgroTourism Location</h2>
+  <div id="map"></div>
+  <form id="tourismForm">
+    <div class="input-group">
+      <label for="locationText">Selected Location</label>
+      <input type="text" id="locationText" placeholder="Selected city/town will appear here" required>
+    </div>
+    <button type="submit" class="btn">Submit Request</button>
+  </form>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+// Initialize map centered on India
+const map = L.map('map', {
+  center: [22.0, 78.0],
+  zoom: 5,
+  minZoom: 5,
+  maxZoom: 10,
+  maxBounds: [
+    [6.5, 68],   // Southwest corner of India
+    [37, 97]     // Northeast corner of India
+  ]
+});
+
+// OpenStreetMap tiles
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '&copy; OpenStreetMap contributors'
+}).addTo(map);
+
+// Custom pin icon
+const pinIcon = L.icon({
+  iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684908.png', // red pin icon
+  iconSize: [38, 38], 
+  iconAnchor: [19, 38] // anchor bottom center
+});
+
+let marker = null;
+
+// Major cities with approximate lat/lng
+const cities = [
+  { name: "Delhi", lat: 28.7041, lng: 77.1025 },
+  { name: "Mumbai", lat: 19.0760, lng: 72.8777 },
+  { name: "Bangalore", lat: 12.9716, lng: 77.5946 },
+  { name: "Chennai", lat: 13.0827, lng: 80.2707 },
+  { name: "Kolkata", lat: 22.5726, lng: 88.3639 },
+  { name: "Jaipur", lat: 26.9124, lng: 75.7873 },
+  { name: "Hyderabad", lat: 17.3850, lng: 78.4867 },
+  { name: "Pune", lat: 18.5204, lng: 73.8567 },
+  { name: "Ahmedabad", lat: 23.0225, lng: 72.5714 },
+  { name: "Lucknow", lat: 26.8467, lng: 80.9462 }
+];
+
+// Get nearest city
+function getNearestCity(lat, lng) {
+  let nearest = cities[0];
+  let minDist = Math.hypot(lat - cities[0].lat, lng - cities[0].lng);
+  for (let i = 1; i < cities.length; i++) {
+    const dist = Math.hypot(lat - cities[i].lat, lng - cities[i].lng);
+    if (dist < minDist) {
+      nearest = cities[i];
+      minDist = dist;
+    }
+  }
+  return nearest.name;
+}
+
+// Place pin on map click
+map.on('click', function(e) {
+  const { lat, lng } = e.latlng;
+  if (marker) map.removeLayer(marker);
+  marker = L.marker([lat, lng], { icon: pinIcon }).addTo(map);
+  document.getElementById('locationText').value = getNearestCity(lat, lng);
+});
+
+// Form submission
+document.getElementById('tourismForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const location = document.getElementById('locationText').value;
+  let requests = JSON.parse(localStorage.getItem("tourismRequests")) || [];
+  requests.push({ location, submittedOn: new Date().toLocaleString() });
+  localStorage.setItem("tourismRequests", JSON.stringify(requests));
+  
+  // Redirect to next page
+  window.location.href = "tourism2.html"; // change to your next page URL
+});
+</script>
+</body>
+</html>

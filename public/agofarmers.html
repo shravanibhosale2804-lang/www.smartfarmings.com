@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Farmer - Submit Farm for AgroTourism</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #f4f9f4;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 30px 0;
+    flex-direction: column;
+  }
+  .container {
+    background: #ffffffdd;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+    max-width: 720px;
+    width: 90%;
+  }
+  h2 { color: #2e7d32; text-align: center; margin-bottom: 20px; }
+  #map { height: 400px; border-radius: 12px; margin-bottom: 15px; }
+  .input-group { margin-bottom: 15px; }
+  .input-group label { display: block; margin-bottom: 6px; font-weight: 500; }
+  .input-group input, .input-group textarea {
+    width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 10px; font-size: 14px; outline: none;
+  }
+  .btn {
+    width: 100%; padding: 12px; font-size: 16px; font-weight: bold;
+    color: #fff; background: linear-gradient(90deg, #43a047, #2e7d32);
+    border: none; border-radius: 50px; cursor: pointer; transition: 0.3s;
+  }
+  .btn:hover { background: linear-gradient(90deg, #2e7d32, #1b5e20); transform: translateY(-2px); }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Submit Your Farm for AgroTourism</h2>
+  <div id="map"></div>
+  <form id="farmForm">
+    <div class="input-group">
+      <label for="farmName">Farm Name</label>
+      <input type="text" id="farmName" required>
+    </div>
+    <div class="input-group">
+      <label for="locationText">Location (City/Town)</label>
+      <input type="text" id="locationText" placeholder="Selected city will appear here" required>
+    </div>
+    <div class="input-group">
+      <label for="description">Description / Amenities</label>
+      <textarea id="description" rows="3" required></textarea>
+    </div>
+    <div class="input-group">
+      <label for="offer">Special Offer</label>
+      <input type="text" id="offer">
+    </div>
+    <button type="submit" class="btn">Submit Farm</button>
+  </form>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+  const map = L.map('map').setView([22.0, 78.0], 5);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+
+  // Restrict map to India bounds
+  map.setMaxBounds([[6.5, 68],[37, 97]]);
+  map.on('drag', function() { map.panInsideBounds([[6.5, 68],[37, 97]]); });
+
+  // Custom pin icon
+  const pinIcon = L.icon({
+    iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684908.png',
+    iconSize: [38, 38],
+    iconAnchor: [19, 38]
+  });
+
+  let marker = null;
+  const locationText = document.getElementById('locationText');
+
+  // Major cities for auto-fill
+  const cities = [
+    {name: "Delhi", lat: 28.7041, lng: 77.1025},
+    {name: "Mumbai", lat: 19.0760, lng: 72.8777},
+    {name: "Bangalore", lat: 12.9716, lng: 77.5946},
+    {name: "Chennai", lat: 13.0827, lng: 80.2707},
+    {name: "Kolkata", lat: 22.5726, lng: 88.3639},
+    {name: "Jaipur", lat: 26.9124, lng: 75.7873},
+    {name: "Hyderabad", lat: 17.3850, lng: 78.4867},
+    {name: "Pune", lat: 18.5204, lng: 73.8567},
+    {name: "Ahmedabad", lat: 23.0225, lng: 72.5714},
+    {name: "Lucknow", lat: 26.8467, lng: 80.9462}
+  ];
+
+  function getNearestCity(lat, lng) {
+    let nearest = cities[0];
+    let minDist = Math.hypot(lat - cities[0].lat, lng - cities[0].lng);
+    for (let i = 1; i < cities.length; i++) {
+      const dist = Math.hypot(lat - cities[i].lat, lng - cities[i].lng);
+      if (dist < minDist) { nearest = cities[i]; minDist = dist; }
+    }
+    return nearest.name;
+  }
+
+  map.on('click', function(e) {
+    const {lat, lng} = e.latlng;
+    if (marker) map.removeLayer(marker);
+    marker = L.marker([lat, lng], {icon: pinIcon}).addTo(map);
+    locationText.value = getNearestCity(lat, lng);
+    // Store coordinates for later
+    locationText.dataset.lat = lat;
+    locationText.dataset.lng = lng;
+  });
+
+  // Form submission with redirect
+  document.getElementById('farmForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const farmName = document.getElementById('farmName').value;
+    const location = document.getElementById('locationText').value;
+    const description = document.getElementById('description').value;
+    const offer = document.getElementById('offer').value;
+    const lat = parseFloat(locationText.dataset.lat) || 22.0;
+    const lng = parseFloat(locationText.dataset.lng) || 78.0;
+
+    // Get existing farms from localStorage or initialize
+    const farms = JSON.parse(localStorage.getItem("farmerFarms")) || [];
+    
+    // Add new farm
+    farms.push({
+      farmName,
+      location,
+      description,
+      offer,
+      lat,
+      lng,
+      submittedOn: new Date().toLocaleString()
+    });
+
+    // Save back to localStorage
+    localStorage.setItem("farmerFarms", JSON.stringify(farms));
+
+    // ✅ Redirect to another page after submission
+    // Replace "thankyou.html" with your actual page
+    window.location.href = "thankyoupage.html";
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgriConnect - Expert Dashboard</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #dcedc8, #a5d6a7);
+      min-height: 100vh;
+      color: #1b5e20;
+    }
+
+    header {
+      background: #2e7d32;
+      color: white;
+      padding: 20px 40px;
+      text-align: center;
+      font-size: 28px;
+      font-weight: 700;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 0 15px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .request-card {
+      background: #f1f8e9;
+      border-radius: 15px;
+      padding: 25px;
+      margin-bottom: 20px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .request-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 35px rgba(0,0,0,0.25);
+    }
+
+    .request-card h3 {
+      margin: 0 0 10px 0;
+    }
+
+    .request-card p {
+      margin: 5px 0;
+    }
+
+    .form-group {
+      margin-top: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 600;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+      outline: none;
+      transition: border 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: #2e7d32;
+      box-shadow: 0 0 8px rgba(46,125,50,0.3);
+    }
+
+    .btn-action {
+      padding: 10px 25px;
+      margin-top: 10px;
+      margin-right: 10px;
+      border: none;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-accept {
+      background: linear-gradient(90deg, #43a047, #2e7d32);
+      color: white;
+    }
+
+    .btn-accept:hover {
+      background: linear-gradient(90deg, #2e7d32, #1b5e20);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+
+    .btn-reject {
+      background: #ef5350;
+      color: white;
+    }
+
+    .btn-reject:hover {
+      background: #c62828;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+
+    .visit-time-group {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<header>AgriConnect - Expert Dashboard</header>
+
+<div class="container">
+  <h2>Consultation Requests</h2>
+  <div id="requestsContainer"></div>
+</div>
+
+<script>
+  const container = document.getElementById('requestsContainer');
+
+  function loadRequests() {
+    container.innerHTML = '';
+    const queries = JSON.parse(localStorage.getItem('queries')) || [];
+    const pending = queries.filter(q => q.status === 'pending');
+
+    if(pending.length === 0) {
+      container.innerHTML = '<p style="text-align:center; font-size:18px;">No pending requests</p>';
+      return;
+    }
+
+    pending.forEach(q => {
+      const card = document.createElement('div');
+      card.className = 'request-card';
+      card.innerHTML = `
+        <h3>${q.title}</h3>
+        <p><strong>Farmer:</strong> ${q.farmerName}</p>
+        <p><strong>Contact Number:</strong> ${q.contactNumber || 'N/A'}</p>
+        <p><strong>Description:</strong> ${q.description}</p>
+        <p><strong>Submitted On:</strong> ${q.submittedOn}</p>
+
+        <div class="form-group">
+          <label>Consultation Fee (₹)</label>
+          <input type="number" placeholder="Enter fee for consultation">
+        </div>
+
+        <div class="form-group">
+          <label>Require Farm Visit?</label>
+          <select class="visit-select">
+            <option value="no">No</option>
+            <option value="yes">Yes</option>
+          </select>
+        </div>
+
+        <div class="form-group visit-time-group">
+          <label>Set Visiting Time</label>
+          <input type="datetime-local">
+        </div>
+
+        <div class="form-group">
+          <label>Additional Notes / Questions</label>
+          <textarea placeholder="Add any notes or questions for the farmer"></textarea>
+        </div>
+
+        <button class="btn-action btn-accept">Accept</button>
+        <button class="btn-action btn-reject">Reject</button>
+      `;
+      container.appendChild(card);
+
+      const visitSelect = card.querySelector('.visit-select');
+      const visitTimeGroup = card.querySelector('.visit-time-group');
+      visitSelect.addEventListener('change', () => {
+        visitTimeGroup.style.display = visitSelect.value === 'yes' ? 'block' : 'none';
+      });
+
+      const acceptBtn = card.querySelector('.btn-accept');
+      const rejectBtn = card.querySelector('.btn-reject');
+
+      acceptBtn.addEventListener('click', () => {
+        const queries = JSON.parse(localStorage.getItem('queries')) || [];
+        const index = queries.findIndex(x => x.id === q.id);
+        if(index !== -1){
+          queries[index].status = 'accepted';
+          queries[index].acceptedOn = new Date().toLocaleString(); // record timestamp
+          localStorage.setItem('queries', JSON.stringify(queries));
+          // redirect to accepted.html
+          window.location.href = 'accepted.html';
+        }
+      });
+
+      rejectBtn.addEventListener('click', () => {
+        updateStatus(q.id, 'rejected');
+        alert('Request Rejected!');
+      });
+    });
+  }
+
+  function updateStatus(id, status) {
+    const queries = JSON.parse(localStorage.getItem('queries')) || [];
+    const index = queries.findIndex(q => q.id === id);
+    if(index !== -1){
+      queries[index].status = status;
+      localStorage.setItem('queries', JSON.stringify(queries));
+      loadRequests();
+    }
+  }
+
+  loadRequests();
+</script>
+
+</body>
+</html>

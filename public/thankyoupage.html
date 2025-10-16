@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thank You - AgroTourism</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #a8edea, #fed6e3);
+    overflow: hidden;
+    flex-direction: column;
+  }
+
+  .container {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 40px 60px;
+    border-radius: 25px;
+    text-align: center;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    max-width: 700px;
+    width: 90%;
+    animation: fadeInScale 1s ease forwards;
+  }
+
+  @keyframes fadeInScale {
+    0% { opacity: 0; transform: scale(0.8); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+
+  h1 {
+    font-size: 36px;
+    color: #2e7d32;
+    margin-bottom: 20px;
+    animation: bounce 1.5s infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+  }
+
+  p {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 30px;
+    line-height: 1.5;
+  }
+
+  .icon {
+    font-size: 60px;
+    color: #43a047;
+    margin-bottom: 20px;
+    animation: rotate 2s linear infinite;
+  }
+
+  @keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  .btn-home {
+    display: inline-block;
+    text-decoration: none;
+    padding: 12px 30px;
+    background: linear-gradient(90deg, #43a047, #2e7d32);
+    color: #fff;
+    font-weight: 600;
+    border-radius: 50px;
+    transition: 0.3s;
+  }
+
+  .btn-home:hover {
+    background: linear-gradient(90deg, #2e7d32, #1b5e20);
+    transform: translateY(-2px);
+  }
+
+  /* Animated background bubbles */
+  .bubble {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+    animation: float 8s infinite;
+    pointer-events: none;
+  }
+
+  @keyframes float {
+    0% { transform: translateY(100vh) scale(0); opacity: 0.5; }
+    50% { transform: translateY(50vh) scale(1); opacity: 0.7; }
+    100% { transform: translateY(-10vh) scale(0); opacity: 0; }
+  }
+
+</style>
+</head>
+<body>
+
+<!-- Background bubbles -->
+<div class="bubble" style="width: 100px; height: 100px; left: 10%; animation-delay: 0s;"></div>
+<div class="bubble" style="width: 60px; height: 60px; left: 30%; animation-delay: 2s;"></div>
+<div class="bubble" style="width: 80px; height: 80px; left: 50%; animation-delay: 4s;"></div>
+<div class="bubble" style="width: 50px; height: 50px; left: 70%; animation-delay: 1s;"></div>
+<div class="bubble" style="width: 120px; height: 120px; left: 85%; animation-delay: 3s;"></div>
+
+<div class="container">
+  <div class="icon">🌿</div>
+  <h1>Thank You!</h1>
+  <p>Thank you for showing interest in AgroTourism. <br>Your request has been received and a customer will reach out to you as soon as possible.</p>
+  <a href="categorypage.html" class="btn-home">Go to Home</a>
+</div>
+
+</body>
+</html>

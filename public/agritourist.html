@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Farmer Page - Add Vacancies</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f9f4;
+      padding: 30px;
+    }
+    h2 { color: #1b4332; }
+    form {
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      max-width: 500px;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: #2d6a4f;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #1b4332;
+    }
+  </style>
+</head>
+<body>
+  <h2>👩‍🌾 Farmer - Add AgroTourism Vacancy</h2>
+  <form id="vacancyForm">
+    <label>Farm Name:</label>
+    <input type="text" id="farmName" required>
+
+    <label>Location:</label>
+    <input type="text" id="location" required>
+
+    <label>Description:</label>
+    <textarea id="description" required></textarea>
+
+    <label>Offer/Discount:</label>
+    <input type="text" id="offer" required>
+
+    <button type="submit">Save Vacancy</button>
+  </form>
+
+  <script>
+    document.getElementById("vacancyForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      // Collect values
+      const farmName = document.getElementById("farmName").value;
+      const location = document.getElementById("location").value;
+      const description = document.getElementById("description").value;
+      const offer = document.getElementById("offer").value;
+
+      // Get existing vacancies or empty list
+      let vacancies = JSON.parse(localStorage.getItem("vacancies")) || [];
+
+      // Add new vacancy
+      vacancies.push({ farmName, location, description, offer });
+
+      // Save back to localStorage
+      localStorage.setItem("vacancies", JSON.stringify(vacancies));
+
+      alert("✅ Vacancy saved successfully!");
+      this.reset();
+    });
+  </script>
+</body>
+</html>

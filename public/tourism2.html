@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Available AgroTourism Farms</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #f4f9f4;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 0 20px;
+  }
+
+  /* Centered Message */
+  #message {
+    font-size: 24px;
+    color: #2d6a4f;
+    font-weight: bold;
+    animation: fadeBlink 1s infinite alternate;
+    text-align: center;
+  }
+
+  @keyframes fadeBlink { from { opacity: 0.3; } to { opacity: 1; } }
+
+  #vacancies {
+    display: none;
+    width: 90%;
+    max-width: 900px;
+    margin-top: 20px;
+  }
+
+  .card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 15px 0;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+
+  .card h3 { margin: 0 0 10px; color: #1b4332; }
+  .card p { margin: 5px 0; color: #333; }
+  .offer { color: #e63946; font-weight: bold; }
+  .no-data { font-size: 20px; color: #555; text-align: center; margin-top: 50px; }
+
+  .view-map-btn, .home-btn {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background: #43a047;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  .view-map-btn:hover, .home-btn:hover { background: #2e7d32; }
+
+  .map-container {
+    margin-top: 10px;
+    height: 300px;
+    border-radius: 12px;
+    display: none;
+  }
+
+  .home-btn {
+    margin-bottom: 20px;
+  }
+</style>
+</head>
+<body>
+
+<div id="message">✅ Fetching available farms...</div>
+
+<div id="vacancies">
+  <!-- Go to Home button -->
+  <button class="home-btn" onclick="location.href='categorypage.html'">🏠 Go to Home</button>
+
+  <h2 style="color:#1b4332;">🌿 Available AgroTourism Farms</h2>
+  <div id="cardsContainer"></div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+  // Fetch farmer-submitted farms from localStorage
+  const farms = JSON.parse(localStorage.getItem("farmerFarms")) || [];
+
+  setTimeout(() => {
+    document.getElementById('message').style.display = 'none';
+    const vacanciesDiv = document.getElementById('vacancies');
+    const container = document.getElementById('cardsContainer');
+
+    if (farms.length === 0) {
+      container.innerHTML = `<p class="no-data">No farms available for agro-tourism yet.</p>`;
+    } else {
+      farms.forEach((farm, index) => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <h3>🌱 ${farm.farmName} - ${farm.location}</h3>
+          <p>${farm.description}</p>
+          <p class="offer">${farm.offer}</p>
+          <button class="view-map-btn">View on Map</button>
+          <div class="map-container" id="map-${index}"></div>
+        `;
+        container.appendChild(card);
+
+        const btn = card.querySelector('.view-map-btn');
+        const mapDiv = card.querySelector('.map-container');
+        let mapInstance = null;
+
+        btn.addEventListener('click', () => {
+          if (mapDiv.style.display === 'none') {
+            mapDiv.style.display = 'block';
+            if (!mapInstance) {
+              const coords = [farm.lat || 22.0, farm.lng || 78.0];
+              mapInstance = L.map(mapDiv.id).setView(coords, 7);
+              L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; OpenStreetMap contributors'
+              }).addTo(mapInstance);
+              L.marker(coords).addTo(mapInstance);
+            }
+            btn.textContent = 'Hide Map';
+          } else {
+            mapDiv.style.display = 'none';
+            btn.textContent = 'View on Map';
+          }
+        });
+      });
+    }
+
+    vacanciesDiv.style.display = 'block';
+  }, 2000);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgriConnect - Help Center</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+/* Reset & Body */
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #f0f8f5;
+  color: #2e7d32;
+}
+
+/* Container */
+.container {
+  max-width: 1200px;
+  margin: 50px auto;
+  padding: 0 20px;
+}
+
+/* Heading */
+h1 {
+  text-align: center;
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 40px;
+}
+
+/* Flowchart */
+.flowchart {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  position: relative;
+}
+
+.flow-step {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 25px;
+  width: 280px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  position: relative;
+  transition: transform 0.3s;
+}
+
+.flow-step:hover { transform: translateY(-5px); }
+
+.flow-step h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #1b4332;
+}
+
+.flow-step p {
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+/* Arrows between steps */
+.flow-step::after {
+  content: "→";
+  position: absolute;
+  right: -25px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 24px;
+  color: #4caf50;
+}
+
+.flow-step:last-child::after {
+  content: "";
+}
+
+/* Role Sections */
+.role-title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: 600;
+  margin-top: 50px;
+  margin-bottom: 20px;
+  color: #2e7d32;
+}
+
+.role-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>AgriConnect Help Center</h1>
+
+  <!-- Farmer Role -->
+  <div class="role-title">Farmer</div>
+  <div class="role-container">
+    <div class="flow-step">
+      <h3>Sign Up / Login</h3>
+      <p>Farmer creates account or logs in to access dashboard.</p>
+    </div>
+    <div class="flow-step">
+      <h3>Submit Farm Info</h3>
+      <p>Enter farm details for agro-tourism opportunities.</p>
+    </div>
+    <div class="flow-step">
+      <h3>Receive Queries</h3>
+      <p>View customer requests and guidance from Agri Experts.</p>
+    </div>
+    <div class="flow-step">
+      <h3>Farm Bookings</h3>
+      <p>Manage rental opportunities for agro-tourism guests.</p>
+    </div>
+  </div>
+
+  <!-- Agri Guest / Customer Role -->
+  <div class="role-title">Agri Guest / Customer</div>
+  <div class="role-container">
+    <div class="flow-step">
+      <h3>Sign Up / Login</h3>
+      <p>Create account to explore agro-tourism options.</p>
+    </div>
+    <div class="flow-step">
+      <h3>Pin Location</h3>
+      <p>Select the desired agro-tourism location on the map.</p>
+    </div>
+    <div class="flow-step">
+      <h3>View Available Farms</h3>
+      <p>Check available farms submitted by farmers with offers.</p>
+    </div>
+    <div class="flow-step">
+      <h3>Submit Request</h3>
+      <p>Send booking request to farmer; receive confirmation.</p>
+    </div>
+  </div>
+
+  <!-- Agri Expert Role -->
+  <div class="role-title">Agri Expert / Admin</div>
+  <div class="role-container">
+    <div class="flow-step">
+      <h3>Login</h3>
+      <p>Access dashboard to monitor farmer queries and requests.</p>
+    </div>
+    <div class="flow-step">
+      <h3>Review Queries</h3>
+      <p>Analyze farmer queries and plan farm visits.</p>
+    </div>
+    <div class="flow-step">
+      <h3>Provide Solutions</h3>
+      <p>Offer guidance, solutions, and advice for field issues.</p>
+    </div>
+    <div class="flow-step">
+      <h3>Monitor Tourism Requests</h3>
+      <p>Check customer requests and ensure smooth agro-tourism experience.</p>
+    </div>
+  </div>
+
+  <!-- General Visitor Role -->
+  <div class="role-title">General Visitor</div>
+  <div class="role-container">
+    <div class="flow-step">
+      <h3>Explore Platform</h3>
+      <p>Browse farms and services without account access.</p>
+    </div>
+    <div class="flow-step">
+      <h3>Sign Up</h3>
+      <p>Create account to participate in agro-tourism or farm rentals.</p>
+    </div>
+    <div class="flow-step">
+      <h3>Contact Support</h3>
+      <p>Ask questions via Help Center or Contact page.</p>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

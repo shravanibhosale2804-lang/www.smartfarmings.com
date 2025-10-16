@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgriConnect - Login</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #a5d6a7, #66bb6a);
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .login-container {
+      background: #ffffffdd;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      width: 350px;
+      text-align: center;
+      animation: fadeIn 1s ease;
+    }
+
+    .logo {
+      font-size: 60px;
+      color: #2e7d32;
+      margin-bottom: 10px;
+      animation: float 3s infinite ease-in-out;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #1b5e20;
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .input-group {
+      margin-bottom: 15px;
+      text-align: left;
+    }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 13px;
+      color: #444;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+      outline: none;
+      transition: border 0.3s;
+    }
+
+    .input-group input:focus {
+      border-color: #2e7d32;
+      box-shadow: 0 0 6px rgba(46,125,50,0.3);
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #fff;
+      background: linear-gradient(90deg, #43a047, #2e7d32);
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      animation: pulse 2s infinite;
+    }
+
+    .btn:hover {
+      background: linear-gradient(90deg, #2e7d32, #1b5e20);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+
+    .extra-links {
+      margin-top: 15px;
+      font-size: 13px;
+    }
+
+    .extra-links a {
+      color: #2e7d32;
+      text-decoration: none;
+      margin: 0 4px;
+      transition: color 0.3s;
+    }
+
+    .extra-links a:hover {
+      color: #1b5e20;
+      text-decoration: underline;
+    }
+
+    /* Animations */
+    @keyframes fadeIn { from {opacity:0; transform: translateY(20px);} to {opacity:1; transform: translateY(0);} }
+    @keyframes float { 0%,100%{transform: translateY(0);} 50%{transform: translateY(-10px);} }
+    @keyframes pulse { 0%{transform:scale(1);} 50%{transform:scale(1.05);} 100%{transform:scale(1);} }
+
+    .error {
+      color: red;
+      font-size: 13px;
+      margin-top: 10px;
+    }
+
+    .success {
+      color: green;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <div class="logo">🌱</div>
+    <h2>Login</h2>
+    <form id="loginForm">
+      <div class="input-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="Your email" required>
+      </div>
+      <div class="input-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Password" required>
+      </div>
+      <button type="submit" class="btn">Login</button>
+      <div id="message"></div>
+    </form>
+    <div class="extra-links">
+      <a href="#">Forgot Password?</a>
+    </div>
+  </div>
+
+  <script>
+    // Predefined credentials (case-sensitive)
+    const validUser = {
+      email: "user@agriconnect.com",
+      password: "AgriConnect123"
+    };
+
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+      const message = document.getElementById("message");
+
+      // Clear old messages
+      message.textContent = "";
+      message.className = "";
+
+      // Case-sensitive check
+      if (email === validUser.email && password === validUser.password) {
+        message.textContent = "✅ Login successful! Redirecting...";
+        message.className = "success";
+
+        // Redirect after short delay
+        setTimeout(() => {
+          window.location.href = "dashboard.html"; // change to your actual dashboard page
+        }, 1500);
+      } else {
+        message.textContent = "❌ Invalid email or password (case-sensitive).";
+        message.className = "error";
+      }
+    });
+  </script>
+</body>
+</html>
